@@ -1,5 +1,6 @@
 Feature: Login
 
+  @TC-01
   Scenario Outline: Login to SwagLabs Application with Correct credentials
     Given User launched SwagLabs application
     When User verify the Page title
