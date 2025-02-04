@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions;
         features = "src/test/java/features/",
         glue = {"stepdefinitions"},
         tags = "@TC-01",
-        plugin = {"pretty"})
+        plugin = {"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"})
 public class SauceDemoTestRunner {
 
 }
