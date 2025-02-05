@@ -1,7 +1,6 @@
 package com.saucedemo.pages;
 
 import com.microsoft.playwright.Page;
-
 public class LoginPage {
 
     Page page;
@@ -27,6 +26,9 @@ public class LoginPage {
 
 // Login into the application
 
+
+
+
     public void loginIntoApplication(String email, String pass) {
         enterUserName(email);
         enterPassword(pass);
@@ -35,6 +37,8 @@ public class LoginPage {
     public void logoutApplication() {
         clickOnHamburger();
         clickOnLogout(); } // Logout from the application
+
+
 
     public void enterUserName(String email) {
         page.fill(username, email);}

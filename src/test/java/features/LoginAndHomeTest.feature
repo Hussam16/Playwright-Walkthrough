@@ -1,9 +1,14 @@
 Feature: Login
 
+  @TC-01
   Scenario Outline: Login to SwagLabs Application with Correct credentials
     Given User launched SwagLabs application
     When User verify the Page title
     When User logged in the app using username "<UserName>" and password "<Password>"
+    And  User Add "<ProductName>" To Cart
+    And User Clicks on the Cart Icon to View the Shopping Cart
+    And User Clicks the Remove Button to Delete an Item from the Cart
+    And User Clicks the Continue Shopping Button to Return to the Store
     Then User verify the product name "<ProductName>"
     Then User logout from the application
 
