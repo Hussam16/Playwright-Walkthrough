@@ -1,7 +1,6 @@
 package com.saucedemo.pages;
 
 import com.microsoft.playwright.Page;
-import io.qameta.allure.*;
 public class LoginPage {
 
     Page page;
@@ -29,7 +28,7 @@ public class LoginPage {
 
 
 
-    @Step
+
     public void loginIntoApplication(String email, String pass) {
         enterUserName(email);
         enterPassword(pass);
