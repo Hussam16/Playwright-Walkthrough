@@ -22,7 +22,7 @@ public class LoginCucumberTest {
     CartPage cart;
     Playwright playwright = Playwright.create();
     BrowserType chrome = playwright.chromium();
-    Browser browser = chrome.launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(1000));
+    Browser browser = chrome.launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(20));
     Page page = browser.newPage();
 
     @Given("User launched SwagLabs application")
@@ -82,5 +82,47 @@ public class LoginCucumberTest {
     @And("User Clicks the Continue Shopping Button to Return to the Store")
     public void userClicksTheContinueShoppingButtonToReturnToTheStore() {
         cart.clickContinueShopping();
+    }
+
+    @When("User clicks the Checkout button")
+    public void userClicksTheCheckoutButton() {
+        cart.clickCheckOutButton();
+    }
+
+    @And("User enters {string}, {string}, and {string} in the checkout form")
+    public void userEntersAndInTheCheckoutForm(String fName, String sName, String add) {
+        cart.fillCheckoutForum(fName,sName,add);
+
+    }
+
+    @And("User clicks the Continue button")
+    public void userClicksTheContinueButton() {
+        cart.clickOveriewContinueButton();
+
+    }
+
+    @Then("User should see the Checkout Overview page")
+    public void userShouldSeeTheCheckoutOverviewPage() {
+
+        String paymentInformationMsg=cart.getPaymentInformationMessage();
+        Assert.assertEquals(paymentInformationMsg,"Payment Information:");
+    }
+
+    @When("User clicks the Finish button")
+    public void userClicksTheFinishButton() {
+        cart.clickFinishButton();
+    }
+
+    @Then("User should see the Order Confirmation message")
+    public void userShouldSeeTheOrderConfirmationMessage() {
+
+        boolean isDisplayed=cart.isMessageVisbible();
+
+    }
+
+    @Then("User Click Home Button and log out")
+    public void userClickHomeButtonAndLogOut() {
+        cart.backHomeButton();
+        login.logoutApplication();
     }
 }
