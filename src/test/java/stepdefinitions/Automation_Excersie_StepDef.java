@@ -25,7 +25,7 @@ public class Automation_Excersie_StepDef {
     public void iOpenTheBrowserAndGoToBaseUrl() {
         page.navigate("https://automationexercise.com/");
         homeScreen = new Home_Screen(page);
-        signUpScreen= new SignUp_Screen(page);
+        signUpScreen = new SignUp_Screen(page);
 
 
         Assert.assertTrue("Not Visible", homeScreen.verifyHomePageIsVisible());
@@ -47,26 +47,73 @@ public class Automation_Excersie_StepDef {
 
     @When("I enter a name and email, then click {string}")
     public void iEnterANameAndEmailThenClick(String arg0) {
-        signUpScreen.enterUserName(String.valueOf(System.currentTimeMillis())+"userName");
-        signUpScreen.enterPassword(String.valueOf(System.currentTimeMillis())+"@xyz.com");
+        signUpScreen.enterUserName(String.valueOf(System.currentTimeMillis()) + "userName");
+        signUpScreen.enterPassword(String.valueOf(System.currentTimeMillis()) + "@xyz.com");
         signUpScreen.clickSubmit();
 
     }
 
     @When("I fill in the account and address details")
     public void iFillInTheAccountAndAddressDetails() {
+        signUpScreen
+                .clickMaleGender()
+                .enterAccountPassword(String.valueOf(System.currentTimeMillis()) + "Asd123@@")
+                .enterFirstName("Hussam").
+                enterLastName("Abd EL Fattah")
+                .enterAddress()
+                .selectCountry()
+                .enterState()
+                .enterCity()
+                .enterZipcode()
+                .enterMobile();
+
     }
 
     @And("I select the newsletter and offers checkboxes")
     public void iSelectTheNewsletterAndOffersCheckboxes() {
+        signUpScreen
+                .clickNewSettler()
+                .clickLatestOffers();
     }
 
     @And("I click {string}")
     public void iClick(String arg0) {
+        signUpScreen.clickCreateAccountBtn();
+
     }
 
     @Then("I should see New User Signup!")
     public void iShouldSeeNewUserSignup() {
         Assert.assertTrue(signUpScreen.validateSignUpTitleVisible());
+    }
+
+    @Then("I should see ACCOUNT CREATED!")
+    public void iShouldSeeACCOUNTCREATED() {
+        Assert.assertTrue(signUpScreen.isAccountCreatedVisible());
+    }
+
+    @When("I click Continue")
+    public void iClickContinue() {
+        page.locator("//a[@data-qa='continue-button']").click();
+    }
+
+    @Then("I should see {string}")
+    public void iShouldSee(String arg0) {
+        Assert.assertTrue(page.locator("//a[contains(.,'Logged in as')]").isVisible());
+    }
+
+    @When("I click Delete Account")
+    public void iClickDeleteAccount() {
+        page.locator("//a[.=' Delete Account']").click();
+    }
+
+    @Then("I should see ACCOUNT DELETED!")
+    public void iShouldSeeACCOUNTDELETED() {
+        Assert.assertTrue(page.locator("//h2[@data-qa='account-deleted']/b").isVisible());
+    }
+
+    @And("I click Continue Button")
+    public void iClickContinueButton() {
+        page.locator("//a[.='Continue']").click();
     }
 }
