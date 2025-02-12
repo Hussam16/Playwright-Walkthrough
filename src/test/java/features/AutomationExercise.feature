@@ -1,3 +1,4 @@
+@Smoke
 Feature: Register User
 
 
@@ -13,6 +14,18 @@ Feature: Register User
     And I click "Create Account"
     Then I should see ACCOUNT CREATED!
     When I click Continue
+    Then I should see "Logged in as username"
+    When I click Delete Account
+    Then I should see ACCOUNT DELETED!
+    And I click Continue Button
+
+  @TestCase-2
+  Scenario: User Login and deletes account successfully
+    Given I open the browser and go to BaseUrl
+    When I click on "Signup / Login"
+    Then I should see Login to your account is visible
+    And  Enter correct email address and password
+    And Click login button
     Then I should see "Logged in as username"
     When I click Delete Account
     Then I should see ACCOUNT DELETED!
