@@ -15,7 +15,10 @@ public class Home_Screen {
 
 
 
+
     public boolean verifyHomePageIsVisible(){
+
+
 
        return page.locator(feature_items).isVisible();
 

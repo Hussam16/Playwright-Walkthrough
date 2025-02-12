@@ -1,3 +1,4 @@
+@Smoke
 Feature: Login
 
   @TC-01

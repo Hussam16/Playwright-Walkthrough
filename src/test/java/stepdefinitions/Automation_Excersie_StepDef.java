@@ -1,6 +1,8 @@
 package stepdefinitions;
 
+import com.automation.Exersicse.Api.CreateUserAPI;
 import com.automationExercise.pages.Home_Screen;
+import com.automationExercise.pages.Login_Screen;
 import com.automationExercise.pages.SignUp_Screen;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
@@ -15,10 +17,15 @@ import org.junit.Assert;
 public class Automation_Excersie_StepDef {
 
     Playwright playwright = Playwright.create();
-    Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(10));
+      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(10));
+   // Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
     Page page = browser.newPage();
     Home_Screen homeScreen;
     SignUp_Screen signUpScreen;
+    CreateUserAPI createUserAPI;
+    Login_Screen loginScreen;
+
+    String email_user = String.valueOf(System.currentTimeMillis()) + "@hotmail.com";
 
 
     @Given("I open the browser and go to BaseUrl")
@@ -26,6 +33,14 @@ public class Automation_Excersie_StepDef {
         page.navigate("https://automationexercise.com/");
         homeScreen = new Home_Screen(page);
         signUpScreen = new SignUp_Screen(page);
+        createUserAPI = new CreateUserAPI(page);
+        loginScreen=new Login_Screen(page);
+
+
+
+        createUserAPI.registerUserThroughApi(email_user);
+        Assert.assertEquals(200, createUserAPI.validateResponseCode());
+        Assert.assertEquals("{\"responseCode\": 201, \"message\": \"User created!\"}", createUserAPI.validateResponseMessage());
 
 
         Assert.assertTrue("Not Visible", homeScreen.verifyHomePageIsVisible());
@@ -37,6 +52,7 @@ public class Automation_Excersie_StepDef {
     @When("I click on {string}")
     public void iClickOn(String arg0) {
         homeScreen.clickOnSignUpLogin();
+
     }
 
     @Then("I should see ENTER ACCOUNT INFORMATION")
@@ -115,5 +131,26 @@ public class Automation_Excersie_StepDef {
     @And("I click Continue Button")
     public void iClickContinueButton() {
         page.locator("//a[.='Continue']").click();
+    }
+
+
+    @Then("I should see Login to your account is visible")
+    public void iShouldSeeLoginToYourAccountIsVisible() {
+
+        Assert.assertTrue(loginScreen.validateLoginToAccountVisible());
+
+    }
+
+    @And("Enter correct email address and password")
+    public void enterCorrectEmailAddressAndPassword() {
+        loginScreen.enterEmail(email_user);
+        System.out.print(email_user);
+        loginScreen.enterPassword();
+
+    }
+
+    @And("Click login button")
+    public void clickLoginButton() {
+        loginScreen.clickLoginButton();
     }
 }
