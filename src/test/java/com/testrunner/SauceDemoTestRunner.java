@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/test/java/features/",
         glue = {"stepdefinitions"},
-        tags = "@TestCase-2",
+        tags = "@TestCase-3",
         plugin = {"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"})
 public class SauceDemoTestRunner {
 
