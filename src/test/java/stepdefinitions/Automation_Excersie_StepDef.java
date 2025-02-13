@@ -8,10 +8,12 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import com.utilites.JsonReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.json.JSONObject;
 import org.junit.Assert;
 
 public class Automation_Excersie_StepDef {
@@ -24,6 +26,7 @@ public class Automation_Excersie_StepDef {
     SignUp_Screen signUpScreen;
     CreateUserAPI createUserAPI;
     Login_Screen loginScreen;
+    JSONObject testData;
 
     String email_user = String.valueOf(System.currentTimeMillis()) + "@hotmail.com";
 
@@ -36,6 +39,7 @@ public class Automation_Excersie_StepDef {
         createUserAPI = new CreateUserAPI(page);
         loginScreen=new Login_Screen(page);
 
+         testData = JsonReader.readJsonFile("C:\\Users\\workstation\\IdeaProjects\\PlaywrightJave\\src\\test\\resources\\userData.json");
 
 
         createUserAPI.registerUserThroughApi(email_user);
@@ -152,5 +156,18 @@ public class Automation_Excersie_StepDef {
     @And("Click login button")
     public void clickLoginButton() {
         loginScreen.clickLoginButton();
+    }
+
+    @And("Enter incorrect email address and password")
+    public void enterIncorrectEmailAddressAndPassword() {
+        loginScreen.enterEmail(testData.getString("username"));
+        loginScreen.enterPassword();
+
+    }
+
+    @Then("I should see  error {string} is visible")
+    public void iShouldSeeErrorYourEmailOrPasswordIsIncorrectIsVisible(String args) {
+
+        Assert.assertEquals(testData.getString("message"),loginScreen.validateIncorrectMsg());
     }
 }

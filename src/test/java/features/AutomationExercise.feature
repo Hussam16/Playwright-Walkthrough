@@ -1,4 +1,4 @@
-@Smoke
+@AutomationExercise
 Feature: Register User
 
 
@@ -30,3 +30,13 @@ Feature: Register User
     When I click Delete Account
     Then I should see ACCOUNT DELETED!
     And I click Continue Button
+
+
+  @TestCase-3
+  Scenario: User Login and deletes account successfully
+    Given I open the browser and go to BaseUrl
+    When I click on "Signup / Login"
+    Then I should see Login to your account is visible
+    And  Enter incorrect email address and password
+    And Click login button
+    Then I should see  error 'Your email or password is incorrect!' is visible
