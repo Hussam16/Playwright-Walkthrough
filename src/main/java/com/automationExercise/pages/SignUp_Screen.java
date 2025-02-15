@@ -134,4 +134,8 @@ public class SignUp_Screen {
         return page.locator("//h2[@data-qa='account-created']/b").isVisible();
 
     }
+
+    public boolean signupTitle() {
+       return page.locator(title).isVisible();
+    }
 }

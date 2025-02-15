@@ -40,3 +40,15 @@ Feature: Register User
     And  Enter incorrect email address and password
     And Click login button
     Then I should see  error 'Your email or password is incorrect!' is visible
+
+
+  @TestCase-4
+  Scenario: User Login and Then logout Sucessfully
+    Given I open the browser and go to BaseUrl
+    When I click on "Signup / Login"
+    Then I should see Login to your account is visible
+    And  Enter correct email address and password
+    And Click login button
+    Then I should see "Logged in as username"
+    When I Click Logout Button
+    Then I should see The Login Screen
