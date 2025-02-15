@@ -37,4 +37,8 @@ public class Home_Screen {
     }
 
 
+    public void clickLogoutButton() {
+
+        page.locator("//ul[@class='nav navbar-nav']/descendant::a[text()=' Logout']").click();
+    }
 }

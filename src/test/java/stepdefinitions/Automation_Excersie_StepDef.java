@@ -170,4 +170,17 @@ public class Automation_Excersie_StepDef {
 
         Assert.assertEquals(testData.getString("message"),loginScreen.validateIncorrectMsg());
     }
+
+    @When("I Click Logout Button")
+    public void iClickLogoutButton() {
+
+        homeScreen.clickLogoutButton();
+
+    }
+
+    @Then("I should see The Login Screen")
+    public void iShouldSeeTheLoginScreen() {
+
+        Assert.assertTrue(signUpScreen.signupTitle());
+    }
 }
