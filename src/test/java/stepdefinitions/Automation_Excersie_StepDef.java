@@ -183,4 +183,24 @@ public class Automation_Excersie_StepDef {
 
         Assert.assertTrue(signUpScreen.signupTitle());
     }
+
+    @When("I enter name & already registered email address")
+    public void iEnterNameAlreadyRegisteredEmailAddress() {
+
+
+
+        signUpScreen.enterUserName(String.valueOf(System.currentTimeMillis()) + "userName");
+        signUpScreen.enterPassword(testData.getString("already_Exist_email"));
+    }
+
+    @And("Click Sign up button")
+    public void clickSignUpButton() {
+        signUpScreen.clickSubmit();
+    }
+
+    @Then("I should see error message Email Address Already Exist")
+    public void iShouldSeeErrorMessageEmailAddressAlreadyExist() {
+        Assert.assertEquals(testData.getString("already_Exist_message"),signUpScreen.getErrorMessageContent());
+
+    }
 }

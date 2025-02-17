@@ -136,6 +136,11 @@ public class SignUp_Screen {
     }
 
     public boolean signupTitle() {
-       return page.locator(title).isVisible();
+        return page.locator(title).isVisible();
+    }
+
+    public String getErrorMessageContent() {
+        return page.locator("//input[@type='email']/following-sibling::p[contains(.,'Email')]").textContent();
+
     }
 }
