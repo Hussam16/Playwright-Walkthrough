@@ -1,5 +1,7 @@
 {
   "username": "invalidUser@gmail.com",
   "password": "ValidPass123",
-  "message": "Your email or password is incorrect!"
+  "message": "Your email or password is incorrect!",
+  "already_Exist_email": "john@gmail.com",
+  "already_Exist_message": "Email Address already exist!"
 }

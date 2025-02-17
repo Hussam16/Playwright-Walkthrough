@@ -52,3 +52,13 @@ Feature: Register User
     Then I should see "Logged in as username"
     When I Click Logout Button
     Then I should see The Login Screen
+
+
+  @TestCase-5
+  Scenario: User registers and deletes account successfully
+    Given I open the browser and go to BaseUrl
+    When I click on "Signup / Login"
+    Then I should see New User Signup!
+    When I enter name & already registered email address
+    And Click Sign up button
+    Then I should see error message Email Address Already Exist
