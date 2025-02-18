@@ -3,5 +3,6 @@
   "password": "ValidPass123",
   "message": "Your email or password is incorrect!",
   "already_Exist_email": "john@gmail.com",
-  "already_Exist_message": "Email Address already exist!"
+  "already_Exist_message": "Email Address already exist!",
+  "contactUs_message": "Get In Touch"
 }

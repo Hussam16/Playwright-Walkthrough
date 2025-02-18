@@ -41,4 +41,9 @@ public class Home_Screen {
 
         page.locator("//ul[@class='nav navbar-nav']/descendant::a[text()=' Logout']").click();
     }
+
+
+    public void clickContactUs(){
+        page.locator("//ul[@class='nav navbar-nav']/descendant::a[text()=' Contact us']").click();
+    }
 }
