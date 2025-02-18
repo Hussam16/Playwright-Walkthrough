@@ -1,6 +1,7 @@
 package stepdefinitions;
 
 import com.automation.Exersicse.Api.CreateUserAPI;
+import com.automationExercise.pages.ContactUs_Screen;
 import com.automationExercise.pages.Home_Screen;
 import com.automationExercise.pages.Login_Screen;
 import com.automationExercise.pages.SignUp_Screen;
@@ -19,13 +20,14 @@ import org.junit.Assert;
 public class Automation_Excersie_StepDef {
 
     Playwright playwright = Playwright.create();
-      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(10));
+      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(1000));
    // Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
     Page page = browser.newPage();
     Home_Screen homeScreen;
     SignUp_Screen signUpScreen;
     CreateUserAPI createUserAPI;
     Login_Screen loginScreen;
+    ContactUs_Screen contactUsScreen;
     JSONObject testData;
 
     String email_user = String.valueOf(System.currentTimeMillis()) + "@hotmail.com";
@@ -38,6 +40,7 @@ public class Automation_Excersie_StepDef {
         signUpScreen = new SignUp_Screen(page);
         createUserAPI = new CreateUserAPI(page);
         loginScreen=new Login_Screen(page);
+        contactUsScreen= new ContactUs_Screen(page);
 
          testData = JsonReader.readJsonFile("C:\\Users\\workstation\\IdeaProjects\\PlaywrightJave\\src\\test\\resources\\userData.json");
 
@@ -202,5 +205,47 @@ public class Automation_Excersie_StepDef {
     public void iShouldSeeErrorMessageEmailAddressAlreadyExist() {
         Assert.assertEquals(testData.getString("already_Exist_message"),signUpScreen.getErrorMessageContent());
 
+    }
+
+    @When("Click Contact Us Button")
+    public void clickContactUsButton() {
+        homeScreen.clickContactUs();
+    }
+
+    @Then("Get IN Touch Is Vislible")
+    public void getINTouchIsVislible() {
+
+        Assert.assertTrue(testData.getString("contactUs_message"),contactUsScreen.getInTouchMessage());
+    }
+
+    @When("Enter Name ,Email ,Subject and Message")
+    public void enterNameEmailSubjectAndMessage() {
+        contactUsScreen
+                .enterFormData(testData.getString("username"),testData.getString("already_Exist_email"),testData.getString("already_Exist_email"), testData.getString("already_Exist_email"));
+    }
+
+    @And("Upload File")
+    public void uploadFile() {
+        contactUsScreen.uploadFile();
+    }
+
+    @And("Click Submit Button")
+    public void clickSubmitButton() {
+        contactUsScreen.clickSubmitButton();
+    }
+
+    @And("Click Ok Button")
+    public void clickOkButton() {
+        System.out.print("They Said Playwright Accept Alert By Default");
+    }
+
+    @Then("Success message 's Visible")
+    public void successMessageSVisible() {
+        Assert.assertTrue(contactUsScreen.sucessMessage());
+    }
+
+    @And("Click Continue Button")
+    public void clickContinueButton() {
+        contactUsScreen.clickHome();
     }
 }
