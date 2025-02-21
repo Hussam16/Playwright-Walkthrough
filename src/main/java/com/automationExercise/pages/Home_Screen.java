@@ -1,5 +1,6 @@
 package com.automationExercise.pages;
 
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
 public class Home_Screen {
@@ -45,5 +46,16 @@ public class Home_Screen {
 
     public void clickContactUs(){
         page.locator("//ul[@class='nav navbar-nav']/descendant::a[text()=' Contact us']").click();
+    }
+
+    public void clickTestcases() {
+        page.locator("//ul[@class='nav navbar-nav']/descendant::a[text()=' Test Cases']").click();
+    }
+
+    public boolean testCasesPageIsOpned() {
+
+        Locator title = page.locator("//h2[.='Test Cases']");
+        System.out.print(title.textContent());
+        return title.isVisible();
     }
 }

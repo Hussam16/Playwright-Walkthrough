@@ -76,3 +76,10 @@ Feature: Register User
     Then Success message 's Visible
     And Click Continue Button
    # Then Verify Landed on Home Page
+
+  @TestCase-7
+  Scenario: Verify Test Cases Page
+    Given I open the browser and go to BaseUrl
+    When Click Testcases Button
+    Then  Verify user is navigated to test cases page successfully
+
