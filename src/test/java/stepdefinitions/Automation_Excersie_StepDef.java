@@ -9,6 +9,7 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.AriaRole;
 import com.utilites.JsonReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -20,8 +21,8 @@ import org.junit.Assert;
 public class Automation_Excersie_StepDef {
 
     Playwright playwright = Playwright.create();
-      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(1000));
-   // Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
+    //      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(1000));
+    Browser browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(true));
     Page page = browser.newPage();
     Home_Screen homeScreen;
     SignUp_Screen signUpScreen;
@@ -39,10 +40,10 @@ public class Automation_Excersie_StepDef {
         homeScreen = new Home_Screen(page);
         signUpScreen = new SignUp_Screen(page);
         createUserAPI = new CreateUserAPI(page);
-        loginScreen=new Login_Screen(page);
-        contactUsScreen= new ContactUs_Screen(page);
+        loginScreen = new Login_Screen(page);
+        contactUsScreen = new ContactUs_Screen(page);
 
-         testData = JsonReader.readJsonFile("C:\\Users\\workstation\\IdeaProjects\\PlaywrightJave\\src\\test\\resources\\userData.json");
+        testData = JsonReader.readJsonFile("C:\\Users\\workstation\\IdeaProjects\\PlaywrightJave\\src\\test\\resources\\userData.json");
 
 
         createUserAPI.registerUserThroughApi(email_user);
@@ -171,7 +172,7 @@ public class Automation_Excersie_StepDef {
     @Then("I should see  error {string} is visible")
     public void iShouldSeeErrorYourEmailOrPasswordIsIncorrectIsVisible(String args) {
 
-        Assert.assertEquals(testData.getString("message"),loginScreen.validateIncorrectMsg());
+        Assert.assertEquals(testData.getString("message"), loginScreen.validateIncorrectMsg());
     }
 
     @When("I Click Logout Button")
@@ -191,7 +192,6 @@ public class Automation_Excersie_StepDef {
     public void iEnterNameAlreadyRegisteredEmailAddress() {
 
 
-
         signUpScreen.enterUserName(String.valueOf(System.currentTimeMillis()) + "userName");
         signUpScreen.enterPassword(testData.getString("already_Exist_email"));
     }
@@ -203,7 +203,7 @@ public class Automation_Excersie_StepDef {
 
     @Then("I should see error message Email Address Already Exist")
     public void iShouldSeeErrorMessageEmailAddressAlreadyExist() {
-        Assert.assertEquals(testData.getString("already_Exist_message"),signUpScreen.getErrorMessageContent());
+        Assert.assertEquals(testData.getString("already_Exist_message"), signUpScreen.getErrorMessageContent());
 
     }
 
@@ -215,13 +215,13 @@ public class Automation_Excersie_StepDef {
     @Then("Get IN Touch Is Vislible")
     public void getINTouchIsVislible() {
 
-        Assert.assertTrue(testData.getString("contactUs_message"),contactUsScreen.getInTouchMessage());
+        Assert.assertTrue(testData.getString("contactUs_message"), contactUsScreen.getInTouchMessage());
     }
 
     @When("Enter Name ,Email ,Subject and Message")
     public void enterNameEmailSubjectAndMessage() {
         contactUsScreen
-                .enterFormData(testData.getString("username"),testData.getString("already_Exist_email"),testData.getString("already_Exist_email"), testData.getString("already_Exist_email"));
+                .enterFormData(testData.getString("username"), testData.getString("already_Exist_email"), testData.getString("already_Exist_email"), testData.getString("already_Exist_email"));
     }
 
     @And("Upload File")
@@ -236,7 +236,10 @@ public class Automation_Excersie_StepDef {
 
     @And("Click Ok Button")
     public void clickOkButton() {
-        System.out.print("They Said Playwright Accept Alert By Default");
+        page.onceDialog(dialog -> {
+            System.out.println("Alert Message: " + dialog.message()); // Debugging
+            dialog.accept(); // Click "OK"
+        });
     }
 
     @Then("Success message 's Visible")
@@ -247,5 +250,16 @@ public class Automation_Excersie_StepDef {
     @And("Click Continue Button")
     public void clickContinueButton() {
         contactUsScreen.clickHome();
+    }
+
+    @When("Click Testcases Button")
+    public void clickTestcasesButton() {
+        homeScreen.clickTestcases();
+    }
+
+    @Then("Verify user is navigated to test cases page successfully")
+    public void verifyUserIsNavigatedToTestCasesPageSuccessfully() {
+
+        Assert.assertTrue(homeScreen.testCasesPageIsOpned());
     }
 }

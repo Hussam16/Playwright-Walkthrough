@@ -36,6 +36,10 @@ public class ContactUs_Screen {
     public void clickSubmitButton() {
         page.locator("//input[@name='submit']").click();
         page.locator("//input[@name='submit']").click();
+        page.locator("//input[@name='submit']").click();
+        page.locator("//input[@name='submit']").click();
+        page.waitForTimeout(3000); // Wait 3 seconds
+
     }
 
     public boolean sucessMessage() {
