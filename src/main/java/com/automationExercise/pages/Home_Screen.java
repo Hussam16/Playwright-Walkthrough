@@ -58,4 +58,15 @@ public class Home_Screen {
         System.out.print(title.textContent());
         return title.isVisible();
     }
+
+    public void clickProducts() {
+        page.locator("//ul[@class='nav navbar-nav']/descendant::a[text()=' Products']").click();
+    }
+
+    public void clickViewFirtProduct() {
+
+        Locator firstProduct = page.locator("//a[.='View Product']").first();
+        firstProduct.click();
+
+    }
 }

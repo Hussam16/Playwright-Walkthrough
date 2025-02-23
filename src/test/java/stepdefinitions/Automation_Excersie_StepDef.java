@@ -21,8 +21,8 @@ import org.junit.Assert;
 public class Automation_Excersie_StepDef {
 
     Playwright playwright = Playwright.create();
-    //      Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(1000));
-    Browser browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(true));
+          Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(1000));
+  //  Browser browser = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(true));
     Page page = browser.newPage();
     Home_Screen homeScreen;
     SignUp_Screen signUpScreen;
@@ -261,5 +261,14 @@ public class Automation_Excersie_StepDef {
     public void verifyUserIsNavigatedToTestCasesPageSuccessfully() {
 
         Assert.assertTrue(homeScreen.testCasesPageIsOpned());
+    }
+
+    @When("Click Products & View First Product")
+    public void clickProductsViewFirstProduct() {
+
+        homeScreen.clickProducts();
+        homeScreen.clickViewFirtProduct();
+
+
     }
 }

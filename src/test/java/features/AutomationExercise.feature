@@ -83,3 +83,10 @@ Feature: Register User
     When Click Testcases Button
     Then  Verify user is navigated to test cases page successfully
 
+
+  @TestCase-8
+  Scenario: Verify All Products and product detail page
+    Given I open the browser and go to BaseUrl
+    When Click Products & View First Product
+
+
